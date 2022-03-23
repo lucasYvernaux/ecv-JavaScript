@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>TP1 - Exercice 6</title>
+  </head>
+  <body>
+
+    <ul>
+        <li>Toto</li>
+        <li>Tata</li>
+        <li>Titi</li>
+        <li>Tutu</li>
+    </ul>
+
+
+    <script text="text/javascript">
+        let liNewElement = document.createElement('li');
+        liNewElement.innerText = 'Lucas';
+
+        let listLiElements = document.getElementsByTagName('li');
+        listLiElements[1].replaceWith(liNewElement);
+    </script>
+  </body>
+</html>

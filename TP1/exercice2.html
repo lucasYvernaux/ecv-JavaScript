@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>TP1 - Exercice 2</title>
+    <script text="text/javascrip" src="./exercice2.js"></script>
+  </head>
+  <body>
+    <p>Mon premier paragraphe</p>
+    <p>Mon deuxieme paragraphe</p>
+    <p>Mon troisieme paragraphe</p>
+  </body>
+  <script>
+    window.addEventListener('DOMContentLoaded', event => {
+      let listElementP = document.getElementsByTagName('p');
+      listElementP[0].style.fontStyle = 'bold';
+      listElementP[1].style.fontStyle = 'italic';
+      listElementP[2].innerText = listElementP[2].innerText.toUpperCase();
+    })
+  </script>
+</html>

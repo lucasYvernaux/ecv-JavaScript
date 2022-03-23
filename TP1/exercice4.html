@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>TP1 - Exercice 4</title>
+  </head>
+  <body>
+    <script text="text/javascript">
+        let divElement = document.createElement('div');
+        divElement.style = 'background-color: violet; width: 100%; height:300px';
+
+        let titreElement = document.createElement('h1');
+        titreElement.style.color = '#fff';
+        titreElement.innerText = 'mon titre en blanc'.toUpperCase();
+        
+        divElement.append(titreElement);
+        document.querySelector('body').append(divElement);
+    </script>
+  </body>
+</html>
