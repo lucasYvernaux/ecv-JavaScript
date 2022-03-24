@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>TP3 - Exercice 4</title>
+    </head>
+    <body>
+        <h1>TP 3 - EXERCICE 4</h1>
+        <h3>liste des 20 dernières touches pressées</h3>
+        <ul class="myList"></ul>
+    </body>
+    <style>
+        .myList li {
+            list-style: decimal;
+        }
+    </style>
+    <script>
+        window.addEventListener('DOMContentLoaded', event => {
+            document.onkeyup = function(event){
+                let newElementList = document.createElement('li');
+                newElementList.textContent = event.key.toUpperCase();
+                let myList = document.querySelector('.myList');
+                if(myList.childElementCount < 20){
+                    myList.append(newElementList);
+                } else {
+                    myList.removeChild(myList.firstChild);
+                    myList.append(newElementList);
+                }
+            }
+        });
+    </script>
+</html>

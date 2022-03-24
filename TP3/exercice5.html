@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>TP3 - Exercice 5</title>
+    </head>
+    <body>
+        <h3>Taille de la fenetre</h3>
+        <p class="myParagraph"></p>
+    </body>
+    <script>
+        window.addEventListener('DOMContentLoaded', event => {
+            let textParagraph = 'Initialisation Paragraphe',
+            hauteutFenetre = window.innerHeight,
+            largeurFenetre = window.innerWidth;
+            textParagraph = 'La fentre fait '+largeurFenetre+'px de largeur et '+hauteutFenetre+'px de hauteur de base';
+            document.querySelector('.myParagraph').textContent = textParagraph;
+            window.addEventListener('resize',function () {
+                textParagraph = 'La fentre fait '+window.innerWidth+'px de largeur et '+window.innerHeight+'px de hauteur maintenant';
+                document.querySelector('.myParagraph').textContent = textParagraph;
+            });
+        });
+    </script>
+</html>

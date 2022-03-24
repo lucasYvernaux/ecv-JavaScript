@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>TP3 - Exercice 1</title>
+    </head>
+    <body>
+        <h1>TP 3 - EXERCICE 1</h1>
+        <div class="myDiv">TEST 1</div> <br>
+        <div class="myDiv">TEST 2</div> <br>
+        <div class="myDiv">TEST 3</div><br>
+    </body>
+    <script>
+        window.addEventListener('DOMContentLoaded', event => {
+            let divlist = document.querySelectorAll('.myDiv');
+            divlist.forEach(myDiv => {
+                myDiv.style.backgroundColor = 'black' ;
+                myDiv.style.color = 'white';
+                myDiv.addEventListener('click', function (e) {
+                    if(myDiv.style.backgroundColor == 'black'){
+                        myDiv.style.backgroundColor = 'red';
+                    } else {
+                        myDiv.style.backgroundColor = 'black';
+                    }
+                })
+            })
+        });
+    </script>
+</html>
