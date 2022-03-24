@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>TP3 - Exercice2</title>
+    </head>
+    <body>
+    </body>
+    <script>
+        window.addEventListener('DOMContentLoaded', event => {
+            let numRandom = Math.random() * (15 - 5) + 5;
+            let newDiv;
+            for (let i=0; i< numRandom; i++){
+                let randomColor = Math.floor(Math.random()*16777215).toString(16);
+                newDiv = document.createElement('div');
+                newDiv.style.height = '50px';
+                newDiv.style.width = '100%';
+                newDiv.style.backgroundColor = '#'+randomColor;
+                newDiv.textContent = 'test '+i;
+                document.querySelector('body').append(newDiv);
+                document.querySelector('body').append(document.createElement('br'))
+            }
+        });
+    </script>
+</html>
