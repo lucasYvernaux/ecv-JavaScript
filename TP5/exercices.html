@@ -23,20 +23,11 @@
         </div>
     </body>
     <script>
-        const findLongestWord = function (str) {
-            let stringTab = str.split(' ');
-            let stringLaPlusGrande = stringTab[0];
-            stringTab.forEach(el => {
-                if (el.length > stringLaPlusGrande.length) {
-                    stringLaPlusGrande = el;
-                }
-            })
-            return stringLaPlusGrande;
-        }
+        //Renvoie les 3 strings les plus long précédé par un #
         getHashTags = (str) => {
-            return str.split(' ').filter(word => word.length == findLongestWord(str).length || word.length == findLongestWord(str).length - 1).map((el)=>{return '#'+el});
+            return str.split(' ').sort((a,b) => b.length - a.length).filter((word,index) => index<3).map((el)=>{return '#'+el});
         }
-
+        //Renvoie un nouveau tableau sans les doublons du tableau passé en parametre
         removeDuplicate = (tab) => {
             return tab.filter((elemen, pos) => {return tab.indexOf(elemen) == pos});
         }
@@ -44,21 +35,23 @@
         removeDuplicate2 = (tab) => {
             return [...new Set(tab)]
         }
-
+        //renvoi un nouveau tableau avec les valeurs qui sont présents dans les 2 tableaux passé en parametre
         intersection = (first, second) => {
             return first.filter( tab => second.includes(tab)).sort();
         }
-
+        //renvoie un nouveau tableau avec les valeurs qui sont présent que dans 1 seul des 2 tableaux
         arrayDiff = (first, second) => {
             return removeDuplicate(first.filter( tab => !second.includes(tab))).concat(removeDuplicate(second.filter( tab2 => !first.includes(tab2)))).sort();
         }
 
-        arrayDiff2 = (first, second) => {
-            return removeDuplicate(first.concat(second).filter(tab => !intersection(first,second).includes(tab))).sort();
+        arrayDiffVersion2 = (first, second) => {
+            return removeDuplicate2(first.concat(second).filter(tab => !intersection(first,second).includes(tab))).sort();
         }
-
+        //Renvoie les resultats de la multiplication des chiffres passé en parametres
+        //Si dans les parametre il y une string ou un objet de type undefined ou null la multiplication se fera avec le chiffre 1
+        //Le seul cas d'erreur est si un parametre vaut NaN alors le résultat sera NaN
         combinations = (...numbers) => {
-            return numbers.reduce((a,b) => a*b);
+            return numbers.filter(nb => typeof (nb) == 'number').reduce((a,b) => a*b);
         }
 
         window.addEventListener('DOMContentLoaded', event => {
@@ -84,11 +77,13 @@
             textDiv3.append(document.createElement('br'));
             textDiv4.append(arrayDiff(tab,second));
             textDiv4.append(document.createElement('br'));
-            textDiv4.append(arrayDiff2(tab,second));
+            textDiv4.append(arrayDiffVersion2(tab,second));
             textDiv4.append(document.createElement('br'));
             textDiv5.append(combinations(2,3));
             textDiv5.append(document.createElement('br'));
             textDiv5.append(combinations(3,7,4));
+            textDiv5.append(document.createElement('br'));
+            textDiv5.append(combinations(3,7,null,undefined,'de','2',4));
             textDiv5.append(document.createElement('br'));
             textDiv5.append(combinations(2,3,4,5));
         });
