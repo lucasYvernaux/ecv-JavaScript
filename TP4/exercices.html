@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>TP4 - Exercice 1</title>
+    </head>
+    <body>
+        <h1>TP 4 - EXERCICES</h1>
+        <div id="myDivExo1"></div>
+        <div id="myDivExo2"></div>
+        <div id="myDivExo3"></div>
+        <div id="myDivExo4"></div>
+        <div id="myDivExo5"></div>
+        <div id="myDivExo6"></div>
+    </body>
+    <script>
+        const revert = function (str) {
+            return str.split("").reverse().join("");
+        }
+
+        const ucFirst = function (word) {
+            return word[0].toUpperCase() + word.substr(1,);
+        }
+
+        const capitalize = function (str) {
+            let stringFinale ='';
+            str.split(' ').forEach(word => {
+                stringFinale += ucFirst(word)+' ';
+            })
+            return stringFinale;
+        }
+
+        const pascalCase = function (str) {
+            let stringFinale = capitalize(str);
+            return stringFinale.replaceAll(' ','');
+        }
+
+        const palindrome = function (str) {
+            return str == revert(str);
+        }
+
+        const findLongestWord = function (str) {
+            let stringTab = str.split(' ');
+            let stringLaPlusGrande = stringTab[0];
+            stringTab.forEach(el => {
+                if (el.length > stringLaPlusGrande.length) {
+                    stringLaPlusGrande = el;
+                }
+            })
+            return stringLaPlusGrande;
+        }
+
+        window.addEventListener('DOMContentLoaded', event => {
+            const textDiv = document.querySelector('#myDivExo1'),
+                textDiv2 = document.querySelector('#myDivExo2'),
+                textDiv3 = document.querySelector('#myDivExo3'),
+                textDiv4 = document.querySelector('#myDivExo4'),
+                textDiv5 = document.querySelector('#myDivExo5'),
+                textDiv6 = document.querySelector('#myDivExo6');
+
+            textDiv.textContent = revert('Hello I\'m Robert !');
+            textDiv2.textContent = ucFirst('Hello');
+            textDiv3.textContent = capitalize('hello i\'m robert');
+            textDiv4.textContent = pascalCase('sentence in PascaleCase');
+            textDiv5.textContent = palindrome('kayak');
+            textDiv6.textContent = findLongestWord('Le chemin le plus cours n\'est pas toujours le meilleur');
+
+        });
+    </script>
+</html>
