@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>TP5 - Exercices</title>
+    </head>
+    <body>
+        <h1>TP 5 - EXERCICES</h1>
+        <div id="myDivExo1">
+            Exercice 1 : <br>
+        </div>
+        <div id="myDivExo2">
+            Exercice 2 : <br>
+        </div>
+        <div id="myDivExo3">
+            Exercice 3 : <br>
+        </div>
+        <div id="myDivExo4">
+            Exercice 4 : <br>
+        </div>
+        <div id="myDivExo5">
+            Exercice 5 : <br>
+        </div>
+    </body>
+    <script>
+        const findLongestWord = function (str) {
+            let stringTab = str.split(' ');
+            let stringLaPlusGrande = stringTab[0];
+            stringTab.forEach(el => {
+                if (el.length > stringLaPlusGrande.length) {
+                    stringLaPlusGrande = el;
+                }
+            })
+            return stringLaPlusGrande;
+        }
+        getHashTags = (str) => {
+            return str.split(' ').filter(word => word.length == findLongestWord(str).length || word.length == findLongestWord(str).length - 1).map((el)=>{return '#'+el});
+        }
+
+        removeDuplicate = (tab) => {
+            return tab.filter((elemen, pos) => {return tab.indexOf(elemen) == pos});
+        }
+
+        removeDuplicate2 = (tab) => {
+            return [...new Set(tab)]
+        }
+
+        intersection = (first, second) => {
+            return first.filter( tab => second.includes(tab)).sort();
+        }
+
+        arrayDiff = (first, second) => {
+            return removeDuplicate(first.filter( tab => !second.includes(tab))).concat(removeDuplicate(second.filter( tab2 => !first.includes(tab2)))).sort();
+        }
+
+        arrayDiff2 = (first, second) => {
+            return removeDuplicate(first.concat(second).filter(tab => !intersection(first,second).includes(tab))).sort();
+        }
+
+        combinations = (...numbers) => {
+            return numbers.reduce((a,b) => a*b);
+        }
+
+        window.addEventListener('DOMContentLoaded', event => {
+            const textDiv = document.querySelector('#myDivExo1'),
+                textDiv2 = document.querySelector('#myDivExo2'),
+                textDiv3 = document.querySelector('#myDivExo3'),
+                textDiv4 = document.querySelector('#myDivExo4'),
+                textDiv5 = document.querySelector('#myDivExo5');
+
+            textDiv.append(getHashTags('How the Avocado Became the fruit of the global Trade'));
+            textDiv.append(document.createElement('br'));
+            textDiv.append(getHashTags('Why You Will Probably Pay More For Your Christmas Tree This Year'));
+            textDiv.append(document.createElement('br'));
+            textDiv.append(getHashTags('Hey Parents, Surprise, Fruit Juice Is Not Fruit'));
+            textDiv.append(document.createElement('br'));
+            textDiv.append(getHashTags('Visualizing Science'));
+            textDiv.append(document.createElement('br'));
+            const tab = [0,2,4,6,8,8];
+            textDiv2.append(removeDuplicate2(tab));
+            textDiv2.append(document.createElement('br'));
+            const second = [1,2,3,4,5,6];
+            textDiv3.append(intersection(tab,second));
+            textDiv3.append(document.createElement('br'));
+            textDiv4.append(arrayDiff(tab,second));
+            textDiv4.append(document.createElement('br'));
+            textDiv4.append(arrayDiff2(tab,second));
+            textDiv4.append(document.createElement('br'));
+            textDiv5.append(combinations(2,3));
+            textDiv5.append(document.createElement('br'));
+            textDiv5.append(combinations(3,7,4));
+            textDiv5.append(document.createElement('br'));
+            textDiv5.append(combinations(2,3,4,5));
+        });
+    </script>
+</html>
