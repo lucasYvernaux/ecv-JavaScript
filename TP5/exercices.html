@@ -25,7 +25,10 @@
     <script>
         //Renvoie les 3 strings les plus long précédé par un #
         getHashTags = (str) => {
-            return str.split(' ').sort((a,b) => b.length - a.length).filter((word,index) => index<3).map((el)=>{return '#'+el});
+            return str.split(' ')
+                .sort((a,b) => b.length - a.length)
+                .slice(0,3)
+                .map((el)=>{return '#'+el});
         }
         //Renvoie un nouveau tableau sans les doublons du tableau passé en parametre
         removeDuplicate = (tab) => {
@@ -41,7 +44,9 @@
         }
         //renvoie un nouveau tableau avec les valeurs qui sont présent que dans 1 seul des 2 tableaux
         arrayDiff = (first, second) => {
-            return removeDuplicate(first.filter( tab => !second.includes(tab))).concat(removeDuplicate(second.filter( tab2 => !first.includes(tab2)))).sort();
+            return removeDuplicate(first.filter( tab => !second.includes(tab)))
+                                        .concat(removeDuplicate(second.filter( tab2 => !first.includes(tab2))))
+                                        .sort();
         }
 
         arrayDiffVersion2 = (first, second) => {
