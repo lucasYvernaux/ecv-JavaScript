@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>TP6 - Exercice</title>
+    </head>
+    <body>
+        <h1>TP 6 - EXERCICE</h1>
+
+    </body>
+    <script>
+        //Renvoie les 3 strings les plus long précédé par un #
+        getHashTags = (str) => {
+            return str.split(' ')
+                .sort((a,b) => b.length - a.length)
+                .slice(0,3)
+                .map((el)=>{return '#'+el});
+        }
+
+        getConsonnes = (str) => {
+            const condition = ['A','E','I','O','U'];
+            return str.split('').filter(letter => !condition.includes(letter.toUpperCase())).join('').toUpperCase();
+        }
+
+        getVoyelles = (str) => {
+            const condition = ['A','E','I','O','U'];
+            return str.split('').filter(letter => condition.includes(letter.toUpperCase())).join('').toUpperCase();
+        }
+
+
+        thirdLetter = (str) => {
+            return str.substr(0,3).toUpperCase();
+        }
+
+        getInitial = (surname) => {
+            const surnameConsonne = getConsonnes(surname);
+            const surnameVoy = getVoyelles(surname);
+            if(surname.length < 3){
+                return thirdLetter(surnameConsonne+surnameVoy+'XXX');
+            } else {
+                if (surnameConsonne.length == 0) {
+                    return thirdLetter(surnameVoy+'XXX');
+                }
+                else if (surnameConsonne.length <= 3){
+                    return thirdLetter(surnameConsonne + surnameVoy);
+                } else {
+                    return surnameConsonne[0] + surnameConsonne[2] + surnameConsonne[3] ;
+                }
+            }
+        }
+
+        getCodeBirthDay = (date,gender) => {
+            const tabDate = date.split('/');
+            let anne
+            let mois;
+            let jourHomme;
+            let jourFemme;
+            let dateJourInt = parseInt(tabDate[0]);
+            if(tabDate.length == 3){
+                anne = tabDate[2].length == 4 ? tabDate[2].substr(2,2) : 'NaN'
+                if (tabDate[1].length<3) {
+                    switch (parseInt(tabDate[1])) {
+                        case 1 :
+                            mois = 'A';
+                            break;
+                        case 2 :
+                            mois = 'B';
+                            break;
+                        case 3 :
+                            mois = 'C';
+                            break;
+                        case 4 :
+                            mois = 'D';
+                            break;
+                        case 5 :
+                            mois = 'E';
+                            break;
+                        case 6 :
+                            mois = 'H';
+                            break;
+                        case 7 :
+                            mois = 'L';
+                            break;
+                        case 8 :
+                            mois = 'M';
+                            break;
+                        case 9 :
+                            mois = 'P';
+                            break;
+                        case 10 :
+                            mois = 'R';
+                            break;
+                        case 11 :
+                            mois = 'S';
+                            break;
+                        case 12 :
+                            mois = 'T';
+                            break;
+                        default :
+                            mois = 'NaN';
+                            break;
+                    }
+                    if(parseInt(tabDate[0]) < 10) {
+                        jourHomme = '0'+dateJourInt;
+                    } else {
+                        jourHomme = dateJourInt;
+                    }
+                    jourFemme = dateJourInt + 40;
+                }
+            } else {
+                console.error('erreur format date invalide ou vide')
+            }
+            return anne.toString()+mois+''+((gender == 'F') ? jourFemme.toString() : jourHomme.toString());
+        }
+
+        getCodeFiscal = (person) => {
+            return getInitial(person['surname'])+getInitial(person['name'])+getCodeBirthDay(person['dob'],person['gender'])
+        }
+
+        window.addEventListener('DOMContentLoaded', event => {
+
+            const textDiv = document.querySelector('#myDivExo1');
+            const personne = {'name' : 'Lucas',
+                              'surname' : 'YVERNAUX',
+                              'gender' : 'M',
+                               'dob': '29/12/1998'}
+            const person2 = ({
+                name: "Matt",
+                surname: "Edabit",
+                gender: "M",
+                dob: "1/1/1900"
+            }) //"DBTMTT00A01"
+
+            const person3 = ({
+                name: "Helen",
+                surname: "Yu",
+                gender: "F",
+                dob: "1/12/1950"
+            }) //"YUXHLN50T41"
+
+            const person4 = ({
+                name: "Mickey",
+                surname: "Mouse",
+                gender: "M",
+                dob: "16/1/1928"
+            }) // "MSOMKY28A16"
+            /*textDiv.append(getHashTags('How the Avocado Became the fruit of the global Trade'));
+            textDiv.append(document.createElement('br'));*/
+           console.log(personne)
+            console.log(personne['name'])
+            console.log(getConsonnes(personne['surname']))
+            console.log(getVoyelles(personne['surname']))
+            console.log(thirdLetter(getConsonnes(personne['surname'])))
+            console.log('TEST INITIAL')
+            console.log(getInitial(personne['surname']))
+            /*console.log(getInitial('YU'))
+            console.log(getInitial('MOUSE'))
+            console.log(getInitial('EdABiT'))
+            console.log(getInitial('samantha'))
+            console.log(getInitial('thomas'))
+            console.log(getInitial('bob'))
+            console.log(getInitial('al'))*/
+            console.log('test birthday  ')
+            console.log(getCodeBirthDay('11/02/1998','F'))
+            console.log('***************************************')
+            console.log(getCodeFiscal(personne))
+            console.log(getCodeFiscal(person2))
+            console.log(getCodeFiscal(person3))
+            console.log(getCodeFiscal(person4))
+
+        });
+    </script>
+</html>
