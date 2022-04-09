@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>TP7 - Promise</title>
+    </head>
+    <body>
+        <h1>TP 7 - EXERCICE</h1>
+        <div id="content">
+            <div id="myDivPerso">
+                Liste des personnages :
+                <ul></ul>
+            </div>
+            <div id="myDivStar">
+                Liste des vaissaux (starships) :
+                <ul></ul>
+            </div>
+            <div id="myDivPlan">
+                Liste des planetes :
+                <ul></ul>
+            </div>
+        </div>
+    </body>
+    <script>
+
+        resolve = (str) => {
+            console.log(`Opération réussi avec le message \n${str}`);
+        }
+        failure = (str) => {
+            console.error(`Opération échoué avec le message \n${str}`);
+        }
+
+        StringLess20 = (str) => {
+            return new Promise((resolve,failure) => {
+                if(str.length <= 20) {
+                    resolve('HEY my string length < 20');
+                } else{
+                    failure('OOPS ERROR string >20');
+                }
+            })
+        }
+
+        operator = (a,b) => {
+            return new Promise((resolve,failure) => {
+                if(a > b) {
+                    const result = a - b;
+                    resolve(`HEY the result is ${result}`);
+                } else{
+                    failure('OOPS ERROR operator');
+                }
+            })
+        }
+
+        testDateOfBirthday = (date) => {
+            return new Promise((resolve,failure) => {
+                const tab = date.split('/');
+                if(parseInt(tab[2]) < 2004) {
+                    resolve(`HEY your are old`);
+                } else{
+                    failure('OOPS ERROR -18');
+                }
+            })
+        }
+
+        /*const promise = StringLess20('de');
+        promise.then(resolve,failure);
+        const secondPromise = operator(6,3);
+        secondPromise.then(resolve,failure);
+        const thirdPromise = testDateOfBirthday('29/12/2005');
+        thirdPromise.then(resolve,failure);*/
+
+
+        //Exercice 4 fonctions executées avec then & catch
+        function execute() {
+            try {
+                //First Promise Ex1
+                StringLess20('dede').then(res => console.log(res));
+                StringLess20('dededddddddddddddddddddddddddddddddddddddddddd').then(res => console.log(res));
+
+                operator(6,3).then(res => console.log(res));
+                operator(3,6).then(res => console.log(res));
+
+                testDateOfBirthday('29/12/1998').then(res => console.log(res));
+                testDateOfBirthday('29/12/2005').then(res => console.log(res));
+
+
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        //Exercice 5 fonctions executées avec try & catch & await
+        executeAsync = () => {
+            try {
+                //First Promise Ex1
+                /*const firstPromise = await StringLess20('dede');
+                console.log(firstPromise);
+                const firstPromiseError = await StringLess20('dededddddddddddddddddddddddddddddddddddddddddd');
+                console.log(firstPromiseError);
+
+                const secondPromise = await operator(6,3);
+                console.log(secondPromise);
+                const secondPromiseError = await operator(3,6);
+                console.log(secondPromiseError);
+
+                const thirdPromise = await testDateOfBirthday('29/12/1998');
+                console.log(thirdPromise);
+                const thirdPromiseError = await testDateOfBirthday('29/12/2005');
+
+                console.log(thirdPromiseError);*/
+
+                const peopleName = [],
+                    starshipsName = [],
+                    planetName = [];
+
+
+                fetch('https://swapi.dev/api/people').then(response => {
+                    response.json().then(async result => {
+                        let nextPage = result['next'];
+                        console.log(nextPage);
+                        result['results'].forEach(people =>{
+                            peopleName.push(people['name'])
+                        })
+                        while(nextPage) {
+                            await fetch(nextPage).then(async res => {
+                                await res.json().then(listPeople =>{
+                                    listPeople['results'].forEach(people =>{
+                                        peopleName.push(people['name'])
+                                    })
+                                    nextPage = listPeople['next'];
+                                    console.log(nextPage);
+                                })
+                            })
+                        }
+                        console.log(peopleName);
+                        const paraPeople = document.createElement('p');
+                        paraPeople.innerHTML = `<br> Liste des personnages : <br> ${peopleName} <br>`
+                        document.querySelector('#myDiv').append(paraPeople);
+                    })
+                })
+
+                fetch('https://swapi.dev/api/starships').then(response => {
+                    response.json().then(async result => {
+                        let nextPage = result['next'];
+                        console.log(nextPage);
+                        result['results'].forEach(starship =>{
+                            starshipsName.push(starship['name'])
+                        })
+                        while(nextPage) {
+                            await fetch(nextPage).then(async res => {
+                                await res.json().then(listStarship =>{
+                                    listStarship['results'].forEach(starship =>{
+                                        starshipsName.push(starship['name'])
+                                    })
+                                    nextPage = listStarship['next'];
+                                    console.log(nextPage);
+                                })
+                            })
+                        }
+                        console.log(starshipsName);
+                        const paraStarship = document.createElement('p');
+                        paraStarship.innerHTML = `<br> Liste des vaissaux (starships) : <br> ${starshipsName} <br>`
+                        document.querySelector('#myDiv').append(starshipsName);
+                    })
+                })
+
+                fetch('https://swapi.dev/api/planets').then(response => {
+                    response.json().then(async result => {
+                        let nextPage = result['next'];
+                        console.log(nextPage);
+                        result['results'].forEach(planet =>{
+                            planetName.push(planet['name'])
+                        })
+                        while(nextPage) {
+                            await fetch(nextPage).then(async res => {
+                                await res.json().then(listPlanet =>{
+                                    listPlanet['results'].forEach(planet =>{
+                                        planetName.push(planet['name'])
+                                    })
+                                    nextPage = listPlanet['next'];
+                                    console.log(nextPage);
+                                })
+                            })
+                        }
+                        console.log(planetName);
+                        const paraPlanet = document.createElement('p');
+                        paraPlanet.innerHTML = `<br> Liste des planetes : <br> ${planetName} <br>`
+                        document.querySelector('#myDiv').append(paraPlanet);
+                    })
+                })
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        executeAsyncStarrWars = () => {
+            try {
+                let elementLi;
+                const peopleName = [],
+                      starshipsName = [],
+                      planetName = [],
+                      divUlPerso = document.querySelector('#myDivPerso ul'),
+                      divUlStar = document.querySelector('#myDivStar ul'),
+                      divUlPlan = document.querySelector('#myDivPlan ul'),
+                      styleDivCenter = `display:flex;
+                                         justify-content:center`;
+
+                document.querySelector('h1').setAttribute('style', styleDivCenter)
+                document.querySelector('#content').setAttribute('style',styleDivCenter);
+                divUlPerso.setAttribute('style', 'list-style-type:upper-roman;');
+                divUlStar.setAttribute('style', 'list-style:decimal;');
+                divUlPlan.setAttribute('style', 'list-style-type:upper-alpha;');
+
+                fetch('https://swapi.dev/api/people').then(response => {
+                    response.json().then(async result => {
+                        let nextPage = result['next'];
+                        result['results'].forEach(people =>{
+                            elementli = document.createElement('li');
+                            elementli.innerHTML = people['name'];
+                            divUlPerso.appendChild(elementli);
+                        })
+                        while(nextPage) {
+                            await fetch(nextPage).then(async res => {
+                                await res.json().then(listPeople =>{
+                                    listPeople['results'].forEach(people =>{
+                                        elementli = document.createElement('li');
+                                        elementli.innerHTML = people['name'];
+                                        divUlPerso.appendChild(elementli);
+                                    })
+                                    nextPage = listPeople['next'];
+                                })
+                            })
+                        }
+                    })
+                })
+
+                fetch('https://swapi.dev/api/starships').then(response => {
+                    response.json().then(async result => {
+                        let nextPage = result['next'];
+                        result['results'].forEach(starship =>{
+                            elementli = document.createElement('li');
+                            elementli.innerHTML = starship['name'];
+                            divUlStar.appendChild(elementli);
+                        })
+                        while(nextPage) {
+                            await fetch(nextPage).then(async res => {
+                                await res.json().then(listStarship =>{
+                                    listStarship['results'].forEach(starship =>{
+                                        elementli = document.createElement('li');
+                                        elementli.innerHTML = starship['name'];
+                                        divUlStar.appendChild(elementli);
+                                    })
+                                    nextPage = listStarship['next'];
+                                })
+                            })
+                        }
+                    })
+                })
+
+                fetch('https://swapi.dev/api/planets').then(response => {
+                    response.json().then(async result => {
+                        let nextPage = result['next'];
+                        result['results'].forEach(planet =>{
+                            elementli = document.createElement('li');
+                            elementli.innerHTML = planet['name'];
+                            divUlPlan.appendChild(elementli);
+                        })
+                        while(nextPage) {
+                            await fetch(nextPage).then(async res => {
+                                await res.json().then(listPlanet =>{
+                                    listPlanet['results'].forEach(planet =>{
+                                        elementli = document.createElement('li');
+                                        elementli.innerHTML = planet['name'];
+                                        divUlPlan.appendChild(elementli);
+                                    })
+                                    nextPage = listPlanet['next'];
+                                })
+                            })
+                        }
+                    })
+                })
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        /*const myPromise = (str) => {
+            return new Promise((resolve, failure) => {
+                if(str.length <= 20) {
+                    resolve('HEY my string length < 20');
+                } else{
+                    failure('OOPS ERROR');
+                }
+            });
+        }*/
+        document.querySelector('#content')
+        executeAsyncStarrWars();
+    </script>
+</html>
