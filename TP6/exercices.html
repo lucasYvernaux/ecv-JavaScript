@@ -10,6 +10,9 @@
         <div id="myDivBonus">
             <p>Exo Bonnus</p>
         </div>
+        <div id="myDiv2">
+            <p>Exercice 2</p>
+        </div>
     </body>
     <script>
         getConsonnes = (str) => {
@@ -83,6 +86,7 @@
 
             const textDiv = document.querySelector('#myDiv');
             const textDivBonus = document.querySelector('#myDivBonus');
+            const textDiv2 = document.querySelector('#myDiv2');
 
             const personne = {'name' : 'Lucas',
                               'surname' : 'YVERNAUX',
@@ -203,6 +207,49 @@
             ));
             textDivBonus.append(document.createElement('br'));
 
+            //Exo 2
+            const merge = (object,otherObject) => {
+                const obj3 = {};
+                const list = [];
+                for (let key in object) {
+                        obj3[key] = object[key];
+                }
+                for (let key in otherObject) {
+                    if(obj3[key] == undefined) {
+                        obj3[key] = otherObject[key];
+                    } else {
+                        if (typeof obj3[key] == 'object') {
+                            obj3[key] = obj3[key].concat(otherObject[key]);
+                        } else {
+                            obj3[key] = (otherObject[key].concat(obj3[key])).sort();
+                        }
+                    }
+                }
+                return obj3;
+            }
+
+            const obj1 = {
+                a: [{x: 'a'},{y:'d'}],
+                b:1
+            }
+            const obj2 = {
+                a: {z: 'r'},
+                b: [2,3],
+                c: 'foo'
+            };
+            textDiv2.append('obj1');
+            textDiv2.append(document.createElement('br'));
+            textDiv2.append(JSON.stringify(obj1));
+            textDiv2.append(document.createElement('br'));
+
+            textDiv2.append('obj2');
+            textDiv2.append(document.createElement('br'));
+            textDiv2.append(JSON.stringify(obj2));
+            textDiv2.append(document.createElement('br'));
+
+            textDiv2.append('obj3');
+            textDiv2.append(document.createElement('br'));
+            textDiv2.append(JSON.stringify(merge(obj1,obj2)));
         });
     </script>
 </html>
