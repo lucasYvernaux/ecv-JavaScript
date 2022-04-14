@@ -6,32 +6,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
             'margin: 0 auto;' +
             'grid-template-columns: repeat(3, 1fr);'
     }
-    const myList = nft.createElement('ol','',olAttribute);
-    if(localStorage.length) {
-        let myNFTList = JSON.parse(localStorage.getItem('listAll'));
-        console.log('j\'ai une session');
-        console.log(myNFTList)
-        myNFTList.forEach(tab => {
-            const idTab = nft.clearString('title_'+tab['name']);
-            const imageAttribute = {
-                'style':'display:block;' +
-                    'width:150px;' +
-                    'height:150px',
-                'id':'myImg',
-                'src':tab['image_url'],
-                'loading':'lazy'
-            }
-            const liAttribute = {
-                'style':'height:230px',
-                'id':idTab
-            }
-            const elementLi = nft.createElement('li',tab['name'],liAttribute,myList);
-            nft.createElement('img','',imageAttribute,elementLi)
-        })
-    } else {
-        console.log('pas de session');
-        nft.testApiToken();
-    }
+    const myList = nft.createElement('ol','',olAttribute,document.querySelector('#app'));
+
+nft.body = document.querySelector('#app')
+nft.initData();
+
+
 
     async function requestAPi() {
         const myHeaders = new Headers();
