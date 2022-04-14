@@ -2,15 +2,41 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>PROJECT</title>
+        <title>PROJECT JS</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
-        <script type="text/javascript" src="scripts.js"></script>
+
+        <script type="text/javascript" src="../scripts/functions.js"></script>
+        <script type="text/javascript" src="../scripts/scripts.js"></script>
     </head>
 
     <body>
+    <header>
         <h1>PROJET NFT</h1>
-        <div id="myDiv"></div>
+        <nav>
+            <ul style="display: flex" class="float-right">
+                <li><a title="page accueil" href="#/">Accueil</a></li>
+                <li><a title="page favoris nft" href="#/Favoris">Favoris</a></li>
+                <li><a title="page contact" href="#/Contact">A Propos</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="searchBar">
+            <label for="search">Rechercher : </label>
+            <input type="search" name="search">
+        </div>
+        <section id="app"></section>
+    </main>
+    <footer>
+        <nav>
+            <ul style="display: flex" class="float-left">
+                <li><a title="page accueil" href="#/">Accueil</a></li>
+                <li><a title="page favoris nft" href="#/Favoris">Favoris</a></li>
+                <li><a title="page contact" href="#/Contact">A Propos</a></li>
+            </ul>
+        </nav>
+    </footer>
     </body>
 </html>
