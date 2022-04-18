@@ -7,6 +7,13 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
 
+        <!-- Fontawasome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
+
+        <!-- CSS Custom -->
+        <link rel="stylesheet" href="style.css">
+
         <script type="text/javascript" src="../scripts/functions.js"></script>
         <script type="text/javascript" src="../scripts/route.js"></script>
         <script type="text/javascript" src="../scripts/scripts.js"></script>
@@ -14,21 +21,28 @@
 
     <body>
     <header>
-        <h1>PROJET NFT</h1>
         <nav>
+            <h1>PROJET NFT</h1>
             <ul style="display: flex" class="float-right">
                 <li><a title="page accueil" href="#/">Accueil</a></li>
                 <li><a title="page favoris nft" href="#/Favoris">Favoris</a></li>
                 <li><a title="page contact" href="#/Contact">A Propos</a></li>
             </ul>
         </nav>
+        <a href="#main">
+            <i class="fa-solid fa-circle-arrow-down"></i>
+        </a>
     </header>
-    <main>
-        <div id="searchBar">
-            <label for="search">Rechercher : </label>
-            <input type="search" name="search">
-        </div>
-        <section id="app"></section>
+    <main id="main">
+        <form id="searchBar">
+            <input type="search" name="search" placeholder="Rechercher">
+            <button class="button">Rechercher</button>
+        </form>
+        <section id="app">
+
+            <!-- NFT list will be there -->
+
+        </section>
     </main>
     <footer>
         <nav>

@@ -43,9 +43,10 @@ nft.initData = () => {
         console.log(myNFTList)
         const divListAttribut = {
             'style':'display: grid;' +
-                'width: 75%;' +
+                'width: 80%;' +
                 'margin: 0 auto;' +
-                'grid-template-columns: repeat(3, 1fr);'
+                'grid-template-columns: repeat(3, 1fr);' +
+                'gap: 50px;'
         }
         const myList = nft.createElement('div','',divListAttribut,nft.body)
         nft.createListNft(myNFTList,myList)
@@ -53,33 +54,78 @@ nft.initData = () => {
         console.log('pas de session');
         nft.testApiToken();
     }
+    // localStorage.removeItem('listFav');
 }
 
 nft.createListNft = (listNft,parent) => {
     listNft.forEach(tab => {
         const idTab = nft.clearString('title_'+tab['name']);
         const imageAttribute = {
-            'style':'display:block;' +
-                'width:150px;' +
-                'height:150px',
             'id':'myImg',
             'src':tab['image_url'],
             'loading':'lazy'
         }
         const articleAttribute = {
-            'style':'height:230px',
-            'id':idTab
+            'id':idTab,
+            'class':'card'
         }
+        const likeAttribute = {
+            'class': 'fa-regular fa-heart'
+        }
+        const detailsAttribute = {
+            'class': 'details'
+        }
+        // const linkAttribute = {
+        //     'href': 'details'
+        // }
         const elemenArticle = nft.createElement('article','',articleAttribute,parent);
+        nft.createElement('i', '',likeAttribute,elemenArticle);
         nft.createElement('img','',imageAttribute,elemenArticle);
-        nft.createElement('p',tab['name'],{},elemenArticle);
+        // nft.createElement('p',tab['name'],{},elemenArticle);
+
+        const detailsArticle = nft.createElement('div','',detailsAttribute,elemenArticle);
+        nft.createElement('p',tab['name'],{}, detailsArticle)
+        // nft.createElement('a','en savoir plus',linkAttribute, detailsArticle)
+
     })
+}
+
+nft.addFav = () => {
+    const like = document.querySelectorAll('.card i');
+    const listFav = [];
+
+    const allListFav = JSON.parse(localStorage.getItem('listFav')) ?  JSON.parse(localStorage.getItem('listFav'))  : [];
+
+    
+    like.forEach(element => {
+        element.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const idLike = element.parentElement.id;
+
+            if (!this.classList.contains('like')) {
+                this.classList.add('like');
+                
+                console.log(allListFav);
+                allListFav.push(idLike);
+                localStorage.setItem('listFav', JSON.stringify(allListFav));
+
+
+                console.log("Add", element.parentElement.id);
+            }
+            else {
+                this.classList.remove('like');
+                localStorage.removeItem('listFav', JSON.stringify(allListFav));
+                console.log("Remove", element.parentElement.id);
+            }
+
+        })
+    });
 }
 
 nft.testApiToken = async () => {
     const olAttribute = {
         'style':'display: grid;' +
-            'width: 75%;' +
+            'width: 80%;' +
             'margin: 0 auto;' +
             'grid-template-columns: repeat(3, 1fr);'
     }
@@ -90,7 +136,7 @@ nft.testApiToken = async () => {
             console.log('je suis dans le fertch');
             console.log(result['assets'])
             localStorage.setItem('listAll', JSON.stringify(result['assets']));
-            const testStorage = JSON.parse(localStorage.getItem('listAll'))
+            const testStorage = JSON.parse(localStorage.getItem('listAll'));
             testStorage.forEach(tab =>{
                 const idTab = nft.clearString('title_'+tab['name']);
                 const imageAttribute = {
