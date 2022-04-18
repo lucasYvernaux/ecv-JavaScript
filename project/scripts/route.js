@@ -36,11 +36,8 @@ window.addEventListener('DOMContentLoaded',(event) => {
     // Register the templates.
     template('template-home', () => {
         myDiv.innerHTML = "";
-        const linkAttribute = {
-            'title':'view3',
-            'href':'#/view3'
-        }
-        const titreMain = nft.createElement('h2','Page Home',linkAttribute,myDiv);
+
+        const titreMain = nft.createElement('h2','Page Home',{},myDiv);
         myDiv.append(titreMain);
         nft.initData();
         return myDiv;
@@ -48,21 +45,51 @@ window.addEventListener('DOMContentLoaded',(event) => {
 
     template('template-Fav', () => {
         myDiv.innerHTML = "";
-        const linkAttribute = {
-                'title':'view3',
-                'href':'#/view3'
-            },
-            olAttribut = {
-                'style':'display: grid;' +
-                    'width: 80%;' +
-                    'margin: 0 auto;' +
-                    'grid-template-columns: repeat(3, 1fr);'
-            };
-        const titreMain = nft.createElement('h2','Ma Page Favoris',linkAttribute,myDiv);
-        myDiv.append(titreMain);
 
-        const listFavNft = nft.createElement('ol','',olAttribut,myDiv);
-        return myDiv.appendChild(listFavNft);
+        const titreMain = nft.createElement('h2','Ma Page Favoris', {},myDiv);
+
+        let myNFTListFav = JSON.parse(localStorage.getItem('listFav'));
+        const divListAttribut = {
+            'style':'display: grid;' +
+                'width: 80%;' +
+                'margin: 0 auto;' +
+                'grid-template-columns: repeat(3, 1fr);' +
+                'gap: 50px;'
+        }
+        const myList = nft.createElement('div','',divListAttribut,nft.body)
+        let displayList = []
+        myNFTListFav.forEach((el) => {
+            fetch("https://awesome-nft-app.herokuapp.com/nft/"+el)
+                .then(response => response.json())
+                .then(tab => {
+                    const idTab = tab['id'];
+                    const imageAttribute = {
+                        'id':'myImg',
+                        'src':tab['image_url'],
+                        'loading':'lazy'
+                    }
+                    const articleAttribute = {
+                        'id':idTab,
+                        'title':tab['name'],
+                        'class':'card'
+                    }
+                    const likeAttribute = {
+                        'class': 'fa-regular fa-heart like'
+                    }
+                    const detailsAttribute = {
+                        'class': 'details'
+                    }
+                    const elemenArticle = nft.createElement('article','',articleAttribute,myList);
+                    nft.createElement('i', '',likeAttribute,elemenArticle,"click",nft.addEvent);
+                    nft.createElement('img','',imageAttribute,elemenArticle);
+
+                    const detailsArticle = nft.createElement('div','',detailsAttribute,elemenArticle);
+                    nft.createElement('p',tab['name'],{}, detailsArticle);
+
+                })
+        });
+
+        return myDiv;
     });
 
     template('template-Contact', () => {
