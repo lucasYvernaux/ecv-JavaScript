@@ -43,6 +43,7 @@ window.addEventListener('DOMContentLoaded',(event) => {
         const titreMain = nft.createElement('h2','Page Home',linkAttribute,myDiv);
         myDiv.append(titreMain);
         nft.initData();
+        nft.addFav();
         return myDiv;
     });
 
@@ -54,7 +55,7 @@ window.addEventListener('DOMContentLoaded',(event) => {
             },
             olAttribut = {
                 'style':'display: grid;' +
-                    'width: 75%;' +
+                    'width: 80%;' +
                     'margin: 0 auto;' +
                     'grid-template-columns: repeat(3, 1fr);'
             };
