@@ -15,7 +15,7 @@ nft.prop_access = (obj, path = null) => {
 };
 
 nft.createElement = (tag, text, attributes, parent = null) => {
-    const root = document.querySelector('#body')
+    const root = document.querySelector('#app')
     const allAttributes = attributes || [];
     const element = document.createElement(tag);
 
