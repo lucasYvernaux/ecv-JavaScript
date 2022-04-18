@@ -68,8 +68,10 @@ nft.initData = () => {
 }
 
 nft.createListNft = (listNft,parent) => {
+    console.log('Pedro')
     listNft.forEach(tab => {
-        const idTab = nft.clearString('title_'+tab['name']);
+        const idTab = tab['id'];
+        const isFav = localStorage.getItem('listFav').includes(tab['id'])
         const imageAttribute = {
             'id':'myImg',
             'src':tab['image_url'],
@@ -77,10 +79,11 @@ nft.createListNft = (listNft,parent) => {
         }
         const articleAttribute = {
             'id':idTab,
+            'title':tab['name'],
             'class':'card'
         }
         const likeAttribute = {
-            'class': 'fa-regular fa-heart'
+            'class': `fa-regular fa-heart ${isFav ? 'like' : ''}`
         }
         const detailsAttribute = {
             'class': 'details'
@@ -135,20 +138,27 @@ nft.createListNft = (listNft,parent) => {
 nft.addEvent = (e) => {
     const idLike = e.target.parentElement.id;
 
-    const allListFav = JSON.parse(localStorage.getItem('listFav')) ?  JSON.parse(localStorage.getItem('listFav'))  : [];
+    console.log('test '+localStorage.getItem('listFav'));
+
+    let allListFav = localStorage.getItem('listFav');
 
     if (!e.target.classList.contains('like')) {
         e.target.classList.add('like');
         
         // console.log(allListFav);
+        if (allListFav == null)
+            allListFav = []
+        else
+            allListFav = JSON.parse(localStorage.getItem('listFav'))
         allListFav.push(idLike);
-        localStorage.setItem('listFav', JSON.stringify(allListFav));
+        let listFinal = [...new Set(allListFav)];
+        localStorage.setItem('listFav', JSON.stringify(listFinal));
 
         // console.log("Add", element.parentElement.id);
     }
     else {
         e.target.classList.remove('like');
-        localStorage.removeItem('listFav', JSON.stringify(allListFav));
+        localStorage.removeItem('listFav');
         // console.log("Remove", element.parentElement.id);
     }
     console.log('OK');
