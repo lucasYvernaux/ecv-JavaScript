@@ -14,10 +14,14 @@ nft.prop_access = (obj, path = null) => {
     return JSON.stringify(obj);
 };
 
-nft.createElement = (tag, text, attributes, parent = null) => {
+nft.createElement = (tag, text, attributes, parent = null, event = null, eventFunction = null) => {
     const root = document.querySelector('#app')
     const allAttributes = attributes || [];
     const element = document.createElement(tag);
+
+    function addEvent(myTag, myEvent, myFunction) {
+        myTag.addEventListener(myEvent, myFunction);
+    }
 
     if(allAttributes) {
         Object.keys(allAttributes).forEach(attr => {
@@ -32,6 +36,12 @@ nft.createElement = (tag, text, attributes, parent = null) => {
         nft.body.appendChild(element);
     } else {
         parent.appendChild(element);
+    }
+    if (event) {
+        addEvent(element, event, eventFunction);
+    } else {
+        event = null;
+        eventFunction = null;
     }
     return element;
 }
@@ -79,7 +89,7 @@ nft.createListNft = (listNft,parent) => {
         //     'href': 'details'
         // }
         const elemenArticle = nft.createElement('article','',articleAttribute,parent);
-        nft.createElement('i', '',likeAttribute,elemenArticle);
+        nft.createElement('i', '',likeAttribute,elemenArticle,"click",nft.addEvent);
         nft.createElement('img','',imageAttribute,elemenArticle);
         // nft.createElement('p',tab['name'],{},elemenArticle);
 
@@ -90,7 +100,7 @@ nft.createListNft = (listNft,parent) => {
     })
 }
 
-nft.addFav = () => {
+/*nft.addFav = () => {
     const like = document.querySelectorAll('.card i');
     const listFav = [];
 
@@ -120,6 +130,28 @@ nft.addFav = () => {
 
         })
     });
+}*/
+
+nft.addEvent = (e) => {
+    const idLike = e.target.parentElement.id;
+
+    const allListFav = JSON.parse(localStorage.getItem('listFav')) ?  JSON.parse(localStorage.getItem('listFav'))  : [];
+
+    if (!e.target.classList.contains('like')) {
+        e.target.classList.add('like');
+        
+        // console.log(allListFav);
+        allListFav.push(idLike);
+        localStorage.setItem('listFav', JSON.stringify(allListFav));
+
+        // console.log("Add", element.parentElement.id);
+    }
+    else {
+        e.target.classList.remove('like');
+        localStorage.removeItem('listFav', JSON.stringify(allListFav));
+        // console.log("Remove", element.parentElement.id);
+    }
+    console.log('OK');
 }
 
 nft.testApiToken = async () => {

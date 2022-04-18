@@ -43,7 +43,6 @@ window.addEventListener('DOMContentLoaded',(event) => {
         const titreMain = nft.createElement('h2','Page Home',linkAttribute,myDiv);
         myDiv.append(titreMain);
         nft.initData();
-        nft.addFav();
         return myDiv;
     });
 
