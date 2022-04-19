@@ -137,6 +137,10 @@ window.addEventListener('DOMContentLoaded',(event) => {
                 const detailsAttribute = {
                     'class': 'details'
                 }
+
+                const uldescAttribute = {
+
+                }
                 const elemenArticle = nft.createElement('article','',articleAttribute,myList);
                 nft.createElement('i', '',likeAttribute,elemenArticle,"click",nft.addEvent);
                 nft.createElement('img','',imageAttribute,elemenArticle);
@@ -144,14 +148,36 @@ window.addEventListener('DOMContentLoaded',(event) => {
 
                 const detailsArticle = nft.createElement('div','',detailsAttribute,elemenArticle);
 
+
+
                 const sectionCollection = nft.createElement('section','',{},elementDiv);
                 nft.createElement('h3','Collection',{},sectionCollection)
+                const uldescCollection = nft.createElement('ul','',uldescAttribute,sectionCollection);
+                const collectionInfo = tab['collection'];
+                const imgCollectionAttribut = {
+                    'src': collectionInfo['image_url']
+                }
+                nft.createElement('li',collectionInfo['name'], {},uldescCollection);
+                nft.createElement('li',collectionInfo['description'], {},uldescCollection);
+                nft.createElement('li',collectionInfo['slug'], {},uldescCollection);
+                nft.createElement('li',collectionInfo['name'], {},uldescCollection);
+                nft.createElement('img','', imgCollectionAttribut,uldescCollection);
+
 
                 const sectionCreator = nft.createElement('section','',{},elementDiv);
-                nft.createElement('h3','Creator',{},sectionCollection);
+                nft.createElement('h3','Creator',{},sectionCreator);
+                const uldescCreator = nft.createElement('ul','',uldescAttribute,sectionCreator);
+                const creatorInfo = tab['creator'];
+                nft.createElement('li',creatorInfo['username'], {},uldescCreator);
+                nft.createElement('li',creatorInfo['profile_url'], {},uldescCreator);
 
                 const sectionOwner = nft.createElement('section','',{},elementDiv);
-                nft.createElement('h3','Owner',{},sectionCollection)
+                nft.createElement('h3','Owner',{},sectionOwner);
+                const uldescOwner = nft.createElement('ul','',uldescAttribute,sectionOwner);
+                const ownerInfo = tab['owner'];
+                nft.createElement('li',ownerInfo['username'], {},uldescOwner);
+                nft.createElement('li',ownerInfo['profile_url'], {},uldescOwner);
+
             });
 
         return myDiv;
