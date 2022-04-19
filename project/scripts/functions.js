@@ -71,7 +71,8 @@ nft.createListNft = (listNft,parent) => {
     console.log('Pedro')
     listNft.forEach(tab => {
         const idTab = tab['id'];
-        const isFav = localStorage.getItem('listFav').includes(tab['id'])
+        const listFav = localStorage.getItem('listFav') ? localStorage.getItem('listFav') : []
+        const isFav = listFav.includes(tab['id'])
         const imageAttribute = {
             'id':'myImg',
             'src':tab['image_url'],
@@ -91,7 +92,7 @@ nft.createListNft = (listNft,parent) => {
         // const linkAttribute = {
         //     'href': 'details'
         // }
-        const elemenArticle = nft.createElement('article','',articleAttribute,parent);
+        const elemenArticle = nft.createElement('article','',articleAttribute,parent,'click',nft.eventDetail);
         nft.createElement('i', '',likeAttribute,elemenArticle,"click",nft.addEvent);
         nft.createElement('img','',imageAttribute,elemenArticle);
         // nft.createElement('p',tab['name'],{},elemenArticle);
@@ -161,6 +162,17 @@ nft.addEvent = (e) => {
         localStorage.removeItem('listFav');
         // console.log("Remove", element.parentElement.id);
     }
+    console.log('OK');
+}
+
+nft.eventDetail = (e) => {
+    const idNft = e.target.parentElement.id;
+
+    localStorage.setItem('myNft', JSON.stringify(idNft));
+
+    console.log('test '+localStorage.getItem('myNft'));
+
+    window.location.hash = '#/nft';
     console.log('OK');
 }
 

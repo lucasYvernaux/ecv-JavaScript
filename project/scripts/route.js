@@ -91,6 +91,71 @@ window.addEventListener('DOMContentLoaded',(event) => {
 
         return myDiv;
     });
+    template('template-detail', () => {
+        myDiv.innerHTML = "";
+
+        const titreMain = nft.createElement('h2',`Détail de`, {},nft.body);
+        myDiv.appendChild(titreMain);
+        let myNFT = JSON.parse(localStorage.getItem('myNft'));
+
+        const divListAttribut = {
+            'style':'display: block;' +
+                'width: 80%;' +
+                'margin: 0 auto;'
+        }
+        const myList = nft.createElement('div','',{},myDiv)
+
+        fetch("https://awesome-nft-app.herokuapp.com/nft/"+myNFT)
+            .then(response => response.json())
+            .then(tab => {
+                document.querySelector('h2').textContent = `${document.querySelector('h2').textContent} ${tab['name']}`
+                const listFav = localStorage.getItem('listFav') ? localStorage.getItem('listFav') : []
+                const isFav = listFav.includes(tab['id'])
+
+                const idTab = tab['id'];
+
+                const divListDescAttribut = {
+                    'style':'display: grid;' +
+                        'width: 80%;' +
+                        'margin: 0 auto;' +
+                        'grid-template-columns: repeat(3, 1fr);' +
+                        'gap: 50px;'
+                }
+                const imageAttribute = {
+                    'id':'myImg',
+                    'src':tab['image_url'],
+                    'loading':'lazy'
+                }
+                const articleAttribute = {
+                    'id':idTab,
+                    'title':tab['name'],
+                    'class':'card'
+                }
+                const likeAttribute = {
+                    'class': `fa-regular fa-heart ${isFav ? 'like' : ''}`
+                }
+                const detailsAttribute = {
+                    'class': 'details'
+                }
+                const elemenArticle = nft.createElement('article','',articleAttribute,myList);
+                nft.createElement('i', '',likeAttribute,elemenArticle,"click",nft.addEvent);
+                nft.createElement('img','',imageAttribute,elemenArticle);
+                const elementDiv = nft.createElement('div','',divListDescAttribut,myDiv)
+
+                const detailsArticle = nft.createElement('div','',detailsAttribute,elemenArticle);
+
+                const sectionCollection = nft.createElement('section','',{},elementDiv);
+                nft.createElement('h3','Collection',{},sectionCollection)
+
+                const sectionCreator = nft.createElement('section','',{},elementDiv);
+                nft.createElement('h3','Creator',{},sectionCollection);
+
+                const sectionOwner = nft.createElement('section','',{},elementDiv);
+                nft.createElement('h3','Owner',{},sectionCollection)
+            });
+
+        return myDiv;
+    });
 
     template('template-Contact', () => {
         myDiv.innerHTML = "";
@@ -271,6 +336,7 @@ window.addEventListener('DOMContentLoaded',(event) => {
     route('/', 'template-home');
     route('/Favoris', 'template-Fav');
     route('/Contact', 'template-Contact');
+    route('/nft', 'template-detail');
 });
 
 window.addEventListener('load', router);
