@@ -137,6 +137,7 @@ nft.createListNft = (listNft,parent) => {
 }*/
 
 nft.addEvent = (e) => {
+    e.stopPropagation();
     const idLike = e.target.parentElement.id;
 
     console.log('test '+localStorage.getItem('listFav'));
