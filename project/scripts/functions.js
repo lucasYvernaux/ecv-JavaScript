@@ -115,15 +115,14 @@ nft.search = () => {
                 el.style.display = "none";
             }
         });
-
-        clearSearch.addEventListener('click', function() {
-            input.value = '';
-            card.forEach(element => {
-                element.style.display = "";
-            })
-        });
-
     })
+
+    clearSearch.addEventListener('click', function() {
+        input.value = '';
+        card.forEach(element => {
+            element.style.display = "";
+        });
+    });
 }
 
 nft.addEvent = (e) => {

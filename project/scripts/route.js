@@ -40,6 +40,9 @@ window.addEventListener('DOMContentLoaded',(event) => {
     template('template-home', () => {
         myDiv.innerHTML = "";
 
+        document.querySelector('#searchBar').style.display = 'block';
+
+
         const titreMain = nft.createElement('h2','Page Home',{},myDiv);
         myDiv.append(titreMain);
         nft.initData();
@@ -64,6 +67,9 @@ window.addEventListener('DOMContentLoaded',(event) => {
 
     template('template-Fav', () => {
         myDiv.innerHTML = "";
+
+        document.querySelector('#searchBar').style.display = 'block';
+
 
         const titreMain = nft.createElement('h2','Ma Page Favoris', {},myDiv);
 
@@ -105,27 +111,19 @@ window.addEventListener('DOMContentLoaded',(event) => {
     
                         const detailsArticle = nft.createElement('div','',detailsAttribute,elemenArticle);
                         nft.createElement('p',tab['name'],{}, detailsArticle);
+                        nft.search();
                     })
             });
         } else {
             myDiv.innerHTML = 'Vous n\'avez encore pas de favoris !';
         }
-
-
-        return myDiv;
-    });
-
-    template('template-Recherche', () => {
-        myDiv.innerHTML = "";
-
-        const titreMain = nft.createElement('h2','Page Home',{},myDiv);
-        myDiv.append(titreMain);
-        nft.initData();
         return myDiv;
     });
 
     template('template-detail', () => {
         myDiv.innerHTML = "";
+
+        document.querySelector('#searchBar').style.display = 'none';
 
         const titreMain = nft.createElement('h2',`Détail de`, {},nft.body);
         myDiv.appendChild(titreMain);
@@ -149,11 +147,7 @@ window.addEventListener('DOMContentLoaded',(event) => {
                 const idTab = tab['id'];
 
                 const divListDescAttribut = {
-                    'style':'display: grid;' +
-                        'width: 80%;' +
-                        'margin: 0 auto 80px auto;' +
-                        'grid-template-columns: repeat(3, 1fr);' +
-                        'gap: 50px;'
+                    'class':'layout'
                 }
                 const imageAttribute = {
                     'id':'myImg',
@@ -163,30 +157,28 @@ window.addEventListener('DOMContentLoaded',(event) => {
                 const articleAttribute = {
                     'id':idTab,
                     'title':tab['name'],
-                    'class':'card'
+                    'class':'card',
+                    'style':'width: 20vw !important;'+
+                        'background-color: inherit !important;'+
+                        'box-shadow: inherit !important;'+
+                        'display: block;'+
+                        'margin: 20px auto;'
                 }
                 const likeAttribute = {
                     'class': `fa-regular fa-heart ${isFav ? 'like' : ''}`
-                }
-                const detailsAttribute = {
-                    'class': 'details'
                 }
 
                 const uldescAttribute = {
 
                 }
                 const elemenArticle = nft.createElement('article','',articleAttribute,myList);
-                elemenArticle.setAttribute("style", "margin: 80px 0 80px 50%; transform: translateX(-50%)") // Alignement image
                 nft.createElement('i', '',likeAttribute,elemenArticle,"click",nft.addEvent);
                 nft.createElement('img','',imageAttribute,elemenArticle);
                 const elementDiv = nft.createElement('div','',divListDescAttribut,myDiv)
 
-                const detailsArticle = nft.createElement('div','',detailsAttribute,elemenArticle);
-
-
 
                 const sectionCollection = nft.createElement('section','',{},elementDiv);
-                sectionCollection.setAttribute("style", "background: #fff; border-radius: 20px; padding: 8px; box-shadow: 0px 0px 6px grey"); // Style boîte collection
+                sectionCollection.setAttribute("style", "background: #fff; border-radius: 20px; padding: 8px; box-shadow: 0px 0px 6px grey; flex: 1;"); // Style boîte collection
                 const myTitleH3_1 = nft.createElement('h3','Collection',{},sectionCollection);
                 myTitleH3_1.setAttribute("style", "text-align: center"); // Alignement titre
                 const uldescCollection = nft.createElement('ul','',uldescAttribute,sectionCollection);
@@ -199,10 +191,10 @@ window.addEventListener('DOMContentLoaded',(event) => {
                 nft.createElement('li',collectionInfo['slug'], {},uldescCollection);
                 nft.createElement('li',collectionInfo['name'], {},uldescCollection);
                 const imageInArticle = nft.createElement('img','', imgCollectionAttribut,uldescCollection);
-                imageInArticle.setAttribute("style", "margin-left: 50%; transform: translateX(-50%)"); // Alignement image dans article
+                imageInArticle.setAttribute("style", "display: block; margin: 20px auto;");
 
                 const sectionCreator = nft.createElement('section','',{},elementDiv);
-                sectionCreator.setAttribute("style", "background: #fff; border-radius: 20px; padding: 8px; box-shadow: 0px 0px 6px grey"); // Style boîte creator
+                sectionCreator.setAttribute("style", "background: #fff; border-radius: 20px; padding: 8px; box-shadow: 0px 0px 6px grey; flex: 1;"); // Style boîte creator
                 const myTitleH3_2 = nft.createElement('h3','Creator',{},sectionCreator);
                 myTitleH3_2.setAttribute("style", "text-align: center"); // Alignement titre
                 const uldescCreator = nft.createElement('ul','',uldescAttribute,sectionCreator);
@@ -211,7 +203,7 @@ window.addEventListener('DOMContentLoaded',(event) => {
                 nft.createElement('li',creatorInfo['profile_url'], {},uldescCreator);
 
                 const sectionOwner = nft.createElement('section','',{},elementDiv);
-                sectionOwner.setAttribute("style", "background: #fff; border-radius: 20px; padding: 8px; box-shadow: 0px 0px 6px grey"); // Style boîte owner
+                sectionOwner.setAttribute("style", "background: #fff; border-radius: 20px; padding: 8px; box-shadow: 0px 0px 6px grey; flex: 1;"); // Style boîte owner
                 const myTitleH3_3 = nft.createElement('h3','Owner',{},sectionOwner);
                 myTitleH3_3.setAttribute("style", "text-align: center"); // Alignement titre
                 const uldescOwner = nft.createElement('ul','',uldescAttribute,sectionOwner);
@@ -226,6 +218,9 @@ window.addEventListener('DOMContentLoaded',(event) => {
 
     template('template-Contact', () => {
         myDiv.innerHTML = "";
+
+        document.querySelector('#searchBar').style.display = 'none';
+
         
         // START CODE KEST - PAGE CONTACT
 
@@ -402,6 +397,9 @@ window.addEventListener('DOMContentLoaded',(event) => {
     template('template-Historique', () => {
         myDiv.innerHTML = "";
 
+        document.querySelector('#searchBar').style.display = 'block';
+
+
         const titreMain = nft.createElement('h2','Mon Historique', {},myDiv);
 
         let allListHist = localStorage.getItem('listHist');
@@ -441,7 +439,7 @@ window.addEventListener('DOMContentLoaded',(event) => {
 
                     const detailsArticle = nft.createElement('div','',detailsAttribute,elemenArticle);
                     nft.createElement('p',tab['name'],{}, detailsArticle);
-
+                    nft.search();
                 })
         });
         const btnAttribut = {
