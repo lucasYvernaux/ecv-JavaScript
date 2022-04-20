@@ -31,13 +31,14 @@
             </ul>
         </nav>
         <a href="#main">
-            <i class="fa-solid fa-circle-arrow-down"></i>
+            <!-- <i class="fa-solid fa-circle-arrow-down"></i> -->
+            <i class="fa-solid fa-heart"></i>
         </a>
     </header>
     <main id="main">
         <form id="searchBar">
             <input type="search" name="search" placeholder="Rechercher">
-            <button class="button">Rechercher</button>
+            <i id="clearSearch" class="fa-solid fa-xmark"></i>
         </form>
         <section id="app">
 
@@ -45,15 +46,37 @@
 
         </section>
     </main>
-    <footer>
-        <nav>
-            <ul style="display: flex" class="float-left">
-                <li><a title="page accueil" href="#/">Accueil</a></li>
-                <li><a title="page favoris nft" href="#/Favoris">Favoris</a></li>
-                <li><a title="page historique" href="#/Historique">Historique</a></li>
-                <li><a title="page contact" href="#/Contact">A Propos</a></li>
-            </ul>
-        </nav>
+
+    <footer class="container">
+        <div class="row">
+            <div class="column">
+                <h4>Équipe</h3>
+                <ul>
+                    <li>Lucas Yvernaux</li>
+                    <li>Alan Bart</li>
+                    <li>Kaça Kester</li>
+                </ul>
+            </div>
+            <div class="column">
+                <h4>Contact</h3>
+                <ul>
+                    <li>ECV Digital Paris</li>
+                    <li><a href="mailto:ecv@projet_lak.fr">ecv@projet_lak.fr</a></li>
+                    <li><a href="tel:0185082686">01 85 08 26 86</a></li>
+                </ul>
+            </div>
+            <div class="column">
+                <h4>Plan du site</h3>
+                <ul>
+                    <li><a title="page accueil" href="#/">Accueil</a></li>
+                    <li><a title="page favoris nft" href="#/Favoris">Favoris</a></li>
+                    <li><a title="page contact" href="#/Contact">A Propos</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <p class="copyright">Team "LAK" © 2022</p>
+        </div>
     </footer>
     </body>
 </html>

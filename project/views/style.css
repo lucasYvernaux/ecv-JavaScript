@@ -5,7 +5,7 @@
 :root {
     --main-color: #0065fc;
     --main-color-bg: #deebff;
-    --grey: #f2f2f2;
+    --grey: #dadada;
 }
 
 html {
@@ -51,11 +51,8 @@ i {
     padding: 15px 20px;
 }
 
-#searchBar .button {
-    all: unset;
-    background-color: var(--main-color);
-    color: white;
-    padding: 15px 20px;
+#clearSearch {
+    margin: 0 15px;
 }
 
 .layout {
@@ -103,8 +100,25 @@ i {
 
 .card i.like {
     font-weight: 900;
+    color: red;
 }
 
 .card .details {
     padding: 10px;
+}
+
+
+/* Footer */
+
+footer {
+    margin-top: 50px !important;
+    background-color: #272727;
+    padding-top: 30px !important;
+    padding-bottom: 10px !important;
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 10px !important;
+    margin: 0px;
 }

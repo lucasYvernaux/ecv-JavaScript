@@ -43,6 +43,7 @@ window.addEventListener('DOMContentLoaded',(event) => {
         const titreMain = nft.createElement('h2','Page Home',{},myDiv);
         myDiv.append(titreMain);
         nft.initData();
+        nft.search();
         return myDiv;
     })
 
@@ -65,6 +66,7 @@ window.addEventListener('DOMContentLoaded',(event) => {
         myDiv.innerHTML = "";
 
         const titreMain = nft.createElement('h2','Ma Page Favoris', {},myDiv);
+        const localStock = JSON.parse(localStorage.getItem('listFav')) ? JSON.parse(localStorage.getItem('listFav')) : []
 
         const divListAttribut = {
             'style':'display: grid;' +
@@ -115,6 +117,16 @@ window.addEventListener('DOMContentLoaded',(event) => {
 
         return myDiv;
     });
+
+    template('template-Recherche', () => {
+        myDiv.innerHTML = "";
+
+        const titreMain = nft.createElement('h2','Page Home',{},myDiv);
+        myDiv.append(titreMain);
+        nft.initData();
+        return myDiv;
+    });
+
     template('template-detail', () => {
         myDiv.innerHTML = "";
 
@@ -455,6 +467,7 @@ window.addEventListener('DOMContentLoaded',(event) => {
     route('/nft/detail', 'template-detail');
     route('/Historique', 'template-Historique');
     route('/notFound', 'template-NotFound');
+
 });
 
 window.addEventListener('load', router);
