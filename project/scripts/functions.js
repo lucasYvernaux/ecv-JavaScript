@@ -148,7 +148,7 @@ nft.addEvent = (e) => {
         e.target.classList.add('like');
         
         // console.log(allListFav);
-        if (allListFav == null)
+        if (allListFav == null || allListFav.length == 0)
             allListFav = []
         else
             allListFav = JSON.parse(localStorage.getItem('listFav'))
@@ -171,10 +171,26 @@ nft.eventDetail = (e) => {
 
     localStorage.setItem('myNft', JSON.stringify(idNft));
 
+    let allListHist = localStorage.getItem('listHist');
+    if (allListHist == null || allListHist.length == 0)
+        allListHist = [];
+    else
+        allListHist = JSON.parse(localStorage.getItem('listHist'))
+    allListHist.push(idNft);
+    let listFinal = [...new Set(allListHist)];
+
+    localStorage.setItem('listHist', JSON.stringify(listFinal));
+
     console.log('test '+localStorage.getItem('myNft'));
 
-    window.location.hash = '#/nft';
+    window.location.hash = `#/nft/detail/${idNft}`;
     console.log('OK');
+}
+
+nft.eventClear = () => {
+
+    localStorage.setItem('listHist','');
+    window.location.reload();
 }
 
 nft.testApiToken = async () => {

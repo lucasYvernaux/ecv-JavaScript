@@ -18,11 +18,14 @@ const routes = {},
 
 // Give the correspondent route (template) or fail
 let resolveRoute = (route) => {
-    try {
-        return routes[route];
-    } catch (error) {
-        throw new Error("The route is not defined");
+    if(window.location.hash.includes('nft/detail') && window.location.hash.slice(13).length == 9) {
+        return routes['/nft/detail'];
     }
+    if (routes[route])
+        return routes[route];
+    else
+        window.location.hash = '#/notFound';
+
 };// The actual router, get the current URL and generate the corresponding template
 
 let router = (evt) => {
@@ -40,6 +43,16 @@ window.addEventListener('DOMContentLoaded',(event) => {
         const titreMain = nft.createElement('h2','Page Home',{},myDiv);
         myDiv.append(titreMain);
         nft.initData();
+        return myDiv;
+    })
+
+    template('template-NotFound', () => {
+        myDiv.innerHTML = "";
+
+        const titreMain = nft.createElement('h2','Page 404',{},myDiv);
+        myDiv.append(titreMain);
+
+        nft.createElement('div',`Route doesn't exist sorry !!!`,{},myDiv)
         return myDiv;
     });
 
@@ -74,12 +87,12 @@ window.addEventListener('DOMContentLoaded',(event) => {
                         'class':'card'
                     }
                     const likeAttribute = {
-                        'class': 'fa-regular fa-heart like'
+                        'class': 'fa-solid fa-xmark like'
                     }
                     const detailsAttribute = {
                         'class': 'details'
                     }
-                    const elemenArticle = nft.createElement('article','',articleAttribute,myList);
+                    const elemenArticle = nft.createElement('article','',articleAttribute,myList,'click',nft.eventDetail);
                     nft.createElement('i', '',likeAttribute,elemenArticle,"click",nft.addEvent);
                     nft.createElement('img','',imageAttribute,elemenArticle);
 
@@ -358,11 +371,71 @@ window.addEventListener('DOMContentLoaded',(event) => {
         return myDiv;
     });
 
+    template('template-Historique', () => {
+        myDiv.innerHTML = "";
+
+        const titreMain = nft.createElement('h2','Mon Historique', {},myDiv);
+
+        let allListHist = localStorage.getItem('listHist');
+        if (allListHist == null || allListHist.length == 0)
+            allListHist = [];
+        else
+            allListHist = JSON.parse(localStorage.getItem('listHist'))
+        const divListAttribut = {
+            'style':'display: grid;' +
+                'width: 80%;' +
+                'margin: 0 auto;' +
+                'grid-template-columns: repeat(3, 1fr);' +
+                'gap: 50px;'
+        }
+        const myList = nft.createElement('div','',divListAttribut,nft.body)
+        let displayList = []
+        allListHist.forEach((el) => {
+            fetch("https://awesome-nft-app.herokuapp.com/nft/"+el)
+                .then(response => response.json())
+                .then(tab => {
+                    const idTab = tab['id'];
+                    const imageAttribute = {
+                        'id':'myImg',
+                        'src':tab['image_url'],
+                        'loading':'lazy'
+                    }
+                    const articleAttribute = {
+                        'id':idTab,
+                        'title':tab['name'],
+                        'class':'card'
+                    }
+                    const likeAttribute = {
+                        'class': 'fa-regular fa-heart like'
+                    }
+                    const detailsAttribute = {
+                        'class': 'details'
+                    }
+                    const elemenArticle = nft.createElement('article','',articleAttribute,myList,'click',nft.eventDetail);
+                    nft.createElement('i', '',likeAttribute,elemenArticle,"click",nft.addEvent);
+                    nft.createElement('img','',imageAttribute,elemenArticle);
+
+                    const detailsArticle = nft.createElement('div','',detailsAttribute,elemenArticle);
+                    nft.createElement('p',tab['name'],{}, detailsArticle);
+
+                })
+        });
+        const btnAttribut = {
+            'style':'margin: 0 auto;' +
+                'display: flex;'
+        }
+
+        nft.createElement('button','clear',btnAttribut,myDiv,'click',nft.eventClear);
+        return myDiv;
+    });
+
     // Define the mappings route->template.
     route('/', 'template-home');
     route('/Favoris', 'template-Fav');
     route('/Contact', 'template-Contact');
-    route('/nft', 'template-detail');
+    route('/nft/detail', 'template-detail');
+    route('/Historique', 'template-Historique');
+    route('/notFound', 'template-NotFound');
 });
 
 window.addEventListener('load', router);
