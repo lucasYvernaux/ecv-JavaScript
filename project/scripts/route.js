@@ -61,7 +61,6 @@ window.addEventListener('DOMContentLoaded',(event) => {
 
         const titreMain = nft.createElement('h2','Ma Page Favoris', {},myDiv);
 
-        let myNFTListFav = JSON.parse(localStorage.getItem('listFav'));
         const divListAttribut = {
             'style':'display: grid;' +
                 'width: 80%;' +
@@ -71,36 +70,41 @@ window.addEventListener('DOMContentLoaded',(event) => {
         }
         const myList = nft.createElement('div','',divListAttribut,nft.body)
         let displayList = []
-        myNFTListFav.forEach((el) => {
-            fetch("https://awesome-nft-app.herokuapp.com/nft/"+el)
-                .then(response => response.json())
-                .then(tab => {
-                    const idTab = tab['id'];
-                    const imageAttribute = {
-                        'id':'myImg',
-                        'src':tab['image_url'],
-                        'loading':'lazy'
-                    }
-                    const articleAttribute = {
-                        'id':idTab,
-                        'title':tab['name'],
-                        'class':'card'
-                    }
-                    const likeAttribute = {
-                        'class': 'fa-solid fa-xmark like'
-                    }
-                    const detailsAttribute = {
-                        'class': 'details'
-                    }
-                    const elemenArticle = nft.createElement('article','',articleAttribute,myList,'click',nft.eventDetail);
-                    nft.createElement('i', '',likeAttribute,elemenArticle,"click",nft.addEvent);
-                    nft.createElement('img','',imageAttribute,elemenArticle);
+        
+        if (JSON.parse(localStorage.getItem('listFav'))) { // Suppression erreur si null
+            
+            let myNFTListFav = JSON.parse(localStorage.getItem('listFav'));
 
-                    const detailsArticle = nft.createElement('div','',detailsAttribute,elemenArticle);
-                    nft.createElement('p',tab['name'],{}, detailsArticle);
-
-                })
-        });
+            myNFTListFav.forEach((el) => {
+                fetch("https://awesome-nft-app.herokuapp.com/nft/"+el)
+                    .then(response => response.json())
+                    .then(tab => {
+                        const idTab = tab['id'];
+                        const imageAttribute = {
+                            'id':'myImg',
+                            'src':tab['image_url'],
+                            'loading':'lazy'
+                        }
+                        const articleAttribute = {
+                            'id':idTab,
+                            'title':tab['name'],
+                            'class':'card'
+                        }
+                        const likeAttribute = {
+                            'class': 'fa-solid fa-xmark like'
+                        }
+                        const detailsAttribute = {
+                            'class': 'details'
+                        }
+                        const elemenArticle = nft.createElement('article','',articleAttribute,myList,'click',nft.eventDetail);
+                        nft.createElement('i', '',likeAttribute,elemenArticle,"click",nft.addEvent);
+                        nft.createElement('img','',imageAttribute,elemenArticle);
+    
+                        const detailsArticle = nft.createElement('div','',detailsAttribute,elemenArticle);
+                        nft.createElement('p',tab['name'],{}, detailsArticle);
+                    })
+            });
+        }
 
         return myDiv;
     });
