@@ -49,11 +49,7 @@ nft.initData = () => {
     if(localStorage.length) {
         let myNFTList = JSON.parse(localStorage.getItem('listAll'));
         const divListAttribut = {
-            'style':'display: grid;' +
-                'width: 80%;' +
-                'margin: 0 auto;' +
-                'grid-template-columns: repeat(3, 1fr);' +
-                'gap: 50px;'
+            'class':'layout'
         }
         const myList = nft.createElement('div','',divListAttribut,nft.body)
         nft.createListNft(myNFTList,myList)
@@ -130,39 +126,6 @@ nft.search = () => {
     })
 }
 
-
-/*nft.addFav = () => {
-    const like = document.querySelectorAll('.card i');
-    const listFav = [];
-
-    const allListFav = JSON.parse(localStorage.getItem('listFav')) ?  JSON.parse(localStorage.getItem('listFav'))  : [];
-
-    
-    like.forEach(element => {
-        element.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const idLike = element.parentElement.id;
-
-            if (!this.classList.contains('like')) {
-                this.classList.add('like');
-                
-                console.log(allListFav);
-                allListFav.push(idLike);
-                localStorage.setItem('listFav', JSON.stringify(allListFav));
-
-
-                console.log("Add", element.parentElement.id);
-            }
-            else {
-                this.classList.remove('like');
-                localStorage.removeItem('listFav', JSON.stringify(allListFav));
-                console.log("Remove", element.parentElement.id);
-            }
-
-        })
-    });
-}*/
-
 nft.addEvent = (e) => {
     e.stopPropagation();
     const idLike = e.target.parentElement.id;
@@ -225,10 +188,7 @@ nft.eventClear = () => {
 
 nft.testApiToken = async () => {
     const olAttribute = {
-        'style':'display: grid;' +
-            'width: 80%;' +
-            'margin: 0 auto;' +
-            'grid-template-columns: repeat(3, 1fr);'
+        'class':'layout'
     }
     const myList = nft.createElement('ol','',olAttribute,nft.body);
     await fetch("https://awesome-nft-app.herokuapp.com/")

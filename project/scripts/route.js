@@ -66,14 +66,9 @@ window.addEventListener('DOMContentLoaded',(event) => {
         myDiv.innerHTML = "";
 
         const titreMain = nft.createElement('h2','Ma Page Favoris', {},myDiv);
-        const localStock = JSON.parse(localStorage.getItem('listFav')) ? JSON.parse(localStorage.getItem('listFav')) : []
 
         const divListAttribut = {
-            'style':'display: grid;' +
-                'width: 80%;' +
-                'margin: 0 auto;' +
-                'grid-template-columns: repeat(3, 1fr);' +
-                'gap: 50px;'
+            'class':'layout'
         }
         const myList = nft.createElement('div','',divListAttribut,nft.body)
         let displayList = []
@@ -112,6 +107,8 @@ window.addEventListener('DOMContentLoaded',(event) => {
                         nft.createElement('p',tab['name'],{}, detailsArticle);
                     })
             });
+        } else {
+            myDiv.innerHTML = 'Vous n\'avez encore pas de favoris !';
         }
 
 
@@ -413,11 +410,7 @@ window.addEventListener('DOMContentLoaded',(event) => {
         else
             allListHist = JSON.parse(localStorage.getItem('listHist'))
         const divListAttribut = {
-            'style':'display: grid;' +
-                'width: 80%;' +
-                'margin: 0 auto;' +
-                'grid-template-columns: repeat(3, 1fr);' +
-                'gap: 50px;'
+            'class':'layout'
         }
         const myList = nft.createElement('div','',divListAttribut,nft.body)
         let displayList = []
@@ -452,7 +445,7 @@ window.addEventListener('DOMContentLoaded',(event) => {
                 })
         });
         const btnAttribut = {
-            'style':'margin: 0 auto;' +
+            'style':'margin: 30px auto;' +
                 'display: flex;'
         }
 
