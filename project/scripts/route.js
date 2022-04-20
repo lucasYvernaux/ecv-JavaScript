@@ -106,7 +106,7 @@ window.addEventListener('DOMContentLoaded',(event) => {
                             'class': 'details'
                         }
                         const elemenArticle = nft.createElement('article','',articleAttribute,myList,'click',nft.eventDetail);
-                        nft.createElement('i', '',likeAttribute,elemenArticle,"click",nft.addEvent);
+                        nft.createElement('i', '',likeAttribute,elemenArticle,"click",nft.eventDeleteFav);
                         nft.createElement('img','',imageAttribute,elemenArticle);
     
                         const detailsArticle = nft.createElement('div','',detailsAttribute,elemenArticle);
