@@ -12,7 +12,6 @@ nft.body = document.querySelector('#app')
 nft.initData();
 
 
-
     async function requestAPi() {
         const myHeaders = new Headers();
         myHeaders.append("Authorization", `Bearer ${m3oToken}`);

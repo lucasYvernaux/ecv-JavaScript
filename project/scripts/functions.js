@@ -99,6 +99,38 @@ nft.createListNft = (listNft,parent) => {
     })
 }
 
+nft.search = () => {
+    const input = document.querySelector("#searchBar input");
+    const clearSearch = document.querySelector("#clearSearch");
+    const card = document.querySelectorAll(".card");
+
+    input.addEventListener('keyup', function() {
+
+        const filter = input.value.toUpperCase();
+        const nftName = document.querySelectorAll(".details p");
+
+        nftName.forEach(element => {
+            el = element.closest(".card");
+            txtValue = element.textContent || element.innerText;
+
+            if (txtValue.toUpperCase().includes(filter)) {
+                el.style.display = "";
+            } else {
+                el.style.display = "none";
+            }
+        });
+
+        clearSearch.addEventListener('click', function() {
+            input.value = '';
+            card.forEach(element => {
+                element.style.display = "";
+            })
+        });
+
+    })
+}
+
+
 /*nft.addFav = () => {
     const like = document.querySelectorAll('.card i');
     const listFav = [];
