@@ -166,6 +166,18 @@ nft.addEvent = (e) => {
     console.log('OK');
 }
 
+nft.eventDeleteFav = (event) => {
+    event.stopPropagation();
+    const idLike = event.target.parentElement.id;
+    const allListFav = JSON.parse(localStorage.getItem('listFav'))
+
+    allListFav[allListFav.indexOf(idLike)] = '';
+    const listFinal = [...new Set(allListFav)];
+
+    localStorage.setItem('listFav', JSON.stringify(listFinal));
+    window.location.reload();
+}
+
 nft.eventDetail = (e) => {
     const idNft = e.target.parentElement.id;
 

@@ -49,10 +49,15 @@ window.addEventListener('DOMContentLoaded',(event) => {
     template('template-NotFound', () => {
         myDiv.innerHTML = "";
 
-        const titreMain = nft.createElement('h2','Page 404',{},myDiv);
-        myDiv.append(titreMain);
+        document.querySelector('form#searchBar').style.display = 'none';
+        const divContentAttribute = {
+            'style': `width: fit-content;
+                margin: 0 auto;`
+        }
+        const divContent = nft.createElement('div','',divContentAttribute,myDiv);
+        const titreMain = nft.createElement('h2','Page 404',{},divContent);
+        nft.createElement('div',`Route doesn't exist sorry !!!`,{},divContent);
 
-        nft.createElement('div',`Route doesn't exist sorry !!!`,{},myDiv)
         return myDiv;
     });
 
@@ -70,6 +75,7 @@ window.addEventListener('DOMContentLoaded',(event) => {
         }
         const myList = nft.createElement('div','',divListAttribut,nft.body)
         let displayList = []
+
         
         if (JSON.parse(localStorage.getItem('listFav'))) { // Suppression erreur si null
             
@@ -105,6 +111,7 @@ window.addEventListener('DOMContentLoaded',(event) => {
                     })
             });
         }
+
 
         return myDiv;
     });
