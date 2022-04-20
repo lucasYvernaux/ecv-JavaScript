@@ -1,10 +1,7 @@
 window.addEventListener('DOMContentLoaded', (event) => {
 
     const olAttribute = {
-        'style':'display: grid;' +
-            'width: 75%;' +
-            'margin: 0 auto;' +
-            'grid-template-columns: repeat(3, 1fr);'
+        'class':'layout'
     }
     const myList = nft.createElement('ol','',olAttribute,document.querySelector('#app'));
 
