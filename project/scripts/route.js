@@ -109,6 +109,7 @@ window.addEventListener('DOMContentLoaded',(event) => {
 
         const titreMain = nft.createElement('h2',`Détail de`, {},nft.body);
         myDiv.appendChild(titreMain);
+        titreMain.setAttribute("style", "text-align: center"); // Alignement titre
         let myNFT = JSON.parse(localStorage.getItem('myNft'));
 
         const divListAttribut = {
@@ -130,7 +131,7 @@ window.addEventListener('DOMContentLoaded',(event) => {
                 const divListDescAttribut = {
                     'style':'display: grid;' +
                         'width: 80%;' +
-                        'margin: 0 auto;' +
+                        'margin: 0 auto 80px auto;' +
                         'grid-template-columns: repeat(3, 1fr);' +
                         'gap: 50px;'
                 }
@@ -155,6 +156,7 @@ window.addEventListener('DOMContentLoaded',(event) => {
 
                 }
                 const elemenArticle = nft.createElement('article','',articleAttribute,myList);
+                elemenArticle.setAttribute("style", "margin: 80px 0 80px 50%; transform: translateX(-50%)") // Alignement image
                 nft.createElement('i', '',likeAttribute,elemenArticle,"click",nft.addEvent);
                 nft.createElement('img','',imageAttribute,elemenArticle);
                 const elementDiv = nft.createElement('div','',divListDescAttribut,myDiv)
@@ -164,7 +166,9 @@ window.addEventListener('DOMContentLoaded',(event) => {
 
 
                 const sectionCollection = nft.createElement('section','',{},elementDiv);
-                nft.createElement('h3','Collection',{},sectionCollection)
+                sectionCollection.setAttribute("style", "background: #fff; border-radius: 20px; padding: 8px; box-shadow: 0px 0px 6px grey"); // Style boîte collection
+                const myTitleH3_1 = nft.createElement('h3','Collection',{},sectionCollection);
+                myTitleH3_1.setAttribute("style", "text-align: center"); // Alignement titre
                 const uldescCollection = nft.createElement('ul','',uldescAttribute,sectionCollection);
                 const collectionInfo = tab['collection'];
                 const imgCollectionAttribut = {
@@ -174,18 +178,22 @@ window.addEventListener('DOMContentLoaded',(event) => {
                 nft.createElement('li',collectionInfo['description'], {},uldescCollection);
                 nft.createElement('li',collectionInfo['slug'], {},uldescCollection);
                 nft.createElement('li',collectionInfo['name'], {},uldescCollection);
-                nft.createElement('img','', imgCollectionAttribut,uldescCollection);
-
+                const imageInArticle = nft.createElement('img','', imgCollectionAttribut,uldescCollection);
+                imageInArticle.setAttribute("style", "margin-left: 50%; transform: translateX(-50%)"); // Alignement image dans article
 
                 const sectionCreator = nft.createElement('section','',{},elementDiv);
-                nft.createElement('h3','Creator',{},sectionCreator);
+                sectionCreator.setAttribute("style", "background: #fff; border-radius: 20px; padding: 8px; box-shadow: 0px 0px 6px grey"); // Style boîte creator
+                const myTitleH3_2 = nft.createElement('h3','Creator',{},sectionCreator);
+                myTitleH3_2.setAttribute("style", "text-align: center"); // Alignement titre
                 const uldescCreator = nft.createElement('ul','',uldescAttribute,sectionCreator);
                 const creatorInfo = tab['creator'];
                 nft.createElement('li',creatorInfo['username'], {},uldescCreator);
                 nft.createElement('li',creatorInfo['profile_url'], {},uldescCreator);
 
                 const sectionOwner = nft.createElement('section','',{},elementDiv);
-                nft.createElement('h3','Owner',{},sectionOwner);
+                sectionOwner.setAttribute("style", "background: #fff; border-radius: 20px; padding: 8px; box-shadow: 0px 0px 6px grey"); // Style boîte owner
+                const myTitleH3_3 = nft.createElement('h3','Owner',{},sectionOwner);
+                myTitleH3_3.setAttribute("style", "text-align: center"); // Alignement titre
                 const uldescOwner = nft.createElement('ul','',uldescAttribute,sectionOwner);
                 const ownerInfo = tab['owner'];
                 nft.createElement('li',ownerInfo['username'], {},uldescOwner);
