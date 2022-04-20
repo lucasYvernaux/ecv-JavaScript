@@ -36,6 +36,7 @@ let router = (evt) => {
 
 window.addEventListener('DOMContentLoaded',(event) => {
     const myDiv = document.getElementById("app");
+    myDiv.innerHTML = "";
     // Register the templates.
     template('template-home', () => {
         myDiv.innerHTML = "";
@@ -49,10 +50,15 @@ window.addEventListener('DOMContentLoaded',(event) => {
     template('template-NotFound', () => {
         myDiv.innerHTML = "";
 
-        const titreMain = nft.createElement('h2','Page 404',{},myDiv);
-        myDiv.append(titreMain);
+        document.querySelector('form#searchBar').style.display = 'none';
+        const divContentAttribute = {
+            'style': `width: fit-content;
+                margin: 0 auto;`
+        }
+        const divContent = nft.createElement('div','',divContentAttribute,myDiv);
+        const titreMain = nft.createElement('h2','Page 404',{},divContent);
+        nft.createElement('div',`Route doesn't exist sorry !!!`,{},divContent)
 
-        nft.createElement('div',`Route doesn't exist sorry !!!`,{},myDiv)
         return myDiv;
     });
 
@@ -87,13 +93,13 @@ window.addEventListener('DOMContentLoaded',(event) => {
                         'class':'card'
                     }
                     const likeAttribute = {
-                        'class': 'fa-solid fa-xmark like'
+                        'class': 'fa-solid fa-xmark'
                     }
                     const detailsAttribute = {
                         'class': 'details'
                     }
                     const elemenArticle = nft.createElement('article','',articleAttribute,myList,'click',nft.eventDetail);
-                    nft.createElement('i', '',likeAttribute,elemenArticle,"click",nft.addEvent);
+                    nft.createElement('i', '',likeAttribute,elemenArticle,"click",nft.eventDeleteFav);
                     nft.createElement('img','',imageAttribute,elemenArticle);
 
                     const detailsArticle = nft.createElement('div','',detailsAttribute,elemenArticle);

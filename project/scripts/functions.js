@@ -48,7 +48,11 @@ nft.createElement = (tag, text, attributes, parent = null, event = null, eventFu
 
 nft.initData = () => {
     if(localStorage.length) {
-        let myNFTList = JSON.parse(localStorage.getItem('listAll'));
+        let myNFTList = localStorage.getItem('listAll');
+        if (myNFTList == null || myNFTList.length == 0)
+            nft.testApiToken();
+        else
+            myNFTList = JSON.parse(localStorage.getItem('listFav'))
         console.log('j\'ai une session');
         console.log(myNFTList)
         const divListAttribut = {
@@ -164,6 +168,18 @@ nft.addEvent = (e) => {
         // console.log("Remove", element.parentElement.id);
     }
     console.log('OK');
+}
+
+nft.eventDeleteFav = (event) => {
+    event.stopPropagation();
+    const idLike = event.target.parentElement.id;
+    const allListFav = JSON.parse(localStorage.getItem('listFav'))
+
+    allListFav[allListFav.indexOf(idLike)] = '';
+    const listFinal = [...new Set(allListFav)];
+
+    localStorage.setItem('listFav', JSON.stringify(listFinal));
+    window.location.reload();
 }
 
 nft.eventDetail = (e) => {
