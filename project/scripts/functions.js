@@ -25,7 +25,6 @@ nft.createElement = (tag, text, attributes, parent = null, event = null, eventFu
 
     if(allAttributes) {
         Object.keys(allAttributes).forEach(attr => {
-            console.log(allAttributes[attr])
             element.setAttribute(attr,allAttributes[attr])
         })
     }
@@ -49,8 +48,6 @@ nft.createElement = (tag, text, attributes, parent = null, event = null, eventFu
 nft.initData = () => {
     if(localStorage.length) {
         let myNFTList = JSON.parse(localStorage.getItem('listAll'));
-        console.log('j\'ai une session');
-        console.log(myNFTList)
         const divListAttribut = {
             'style':'display: grid;' +
                 'width: 80%;' +
@@ -61,14 +58,12 @@ nft.initData = () => {
         const myList = nft.createElement('div','',divListAttribut,nft.body)
         nft.createListNft(myNFTList,myList)
     } else {
-        console.log('pas de session');
         nft.testApiToken();
     }
     // localStorage.removeItem('listFav');
 }
 
 nft.createListNft = (listNft,parent) => {
-    console.log('Pedro')
     listNft.forEach(tab => {
         const idTab = tab['id'];
         const listFav = localStorage.getItem('listFav') ? localStorage.getItem('listFav') : []
@@ -140,14 +135,12 @@ nft.addEvent = (e) => {
     e.stopPropagation();
     const idLike = e.target.parentElement.id;
 
-    console.log('test '+localStorage.getItem('listFav'));
 
     let allListFav = localStorage.getItem('listFav');
 
     if (!e.target.classList.contains('like')) {
         e.target.classList.add('like');
         
-        // console.log(allListFav);
         if (allListFav == null || allListFav.length == 0)
             allListFav = []
         else
@@ -155,15 +148,11 @@ nft.addEvent = (e) => {
         allListFav.push(idLike);
         let listFinal = [...new Set(allListFav)];
         localStorage.setItem('listFav', JSON.stringify(listFinal));
-
-        // console.log("Add", element.parentElement.id);
     }
     else {
         e.target.classList.remove('like');
         localStorage.removeItem('listFav');
-        // console.log("Remove", element.parentElement.id);
     }
-    console.log('OK');
 }
 
 nft.eventDeleteFav = (event) => {
@@ -193,10 +182,7 @@ nft.eventDetail = (e) => {
 
     localStorage.setItem('listHist', JSON.stringify(listFinal));
 
-    console.log('test '+localStorage.getItem('myNft'));
-
     window.location.hash = `#/nft/detail/${idNft}`;
-    console.log('OK');
 }
 
 nft.eventClear = () => {
@@ -216,8 +202,6 @@ nft.testApiToken = async () => {
     await fetch("https://awesome-nft-app.herokuapp.com/")
         .then(response => response.json())
         .then(result => {
-            console.log('je suis dans le fertch');
-            console.log(result['assets'])
             localStorage.setItem('listAll', JSON.stringify(result['assets']));
             const testStorage = JSON.parse(localStorage.getItem('listAll'));
             testStorage.forEach(tab =>{
