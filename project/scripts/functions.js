@@ -63,7 +63,7 @@ nft.createListNft = (listNft,parent) => {
     listNft.forEach(tab => {
         const idTab = tab['id'];
         const listFav = localStorage.getItem('listFav') ? localStorage.getItem('listFav') : []
-        const isFav = listFav.includes(tab['id'])
+        const isFav = listFav.includes(tab['id']);
         const imageAttribute = {
             'id':'myImg',
             'src':tab['image_url'],
@@ -155,8 +155,8 @@ nft.eventDeleteFav = (event) => {
     const idLike = event.target.parentElement.id;
     const allListFav = JSON.parse(localStorage.getItem('listFav'))
 
-    allListFav[allListFav.indexOf(idLike)] = '';
-    const listFinal = [...new Set(allListFav)];
+    const newListFav = allListFav.filter((el) =>{el!=allListFav[idLike]});
+    const listFinal = [...new Set(newListFav)];
 
     localStorage.setItem('listFav', JSON.stringify(listFinal));
     window.location.reload();

@@ -416,6 +416,8 @@ window.addEventListener('DOMContentLoaded',(event) => {
             fetch("https://awesome-nft-app.herokuapp.com/nft/"+el)
                 .then(response => response.json())
                 .then(tab => {
+                    const listFav = localStorage.getItem('listFav') ? localStorage.getItem('listFav') : []
+                    const isFav = listFav.includes(tab['id']);
                     const idTab = tab['id'];
                     const imageAttribute = {
                         'id':'myImg',
@@ -428,7 +430,7 @@ window.addEventListener('DOMContentLoaded',(event) => {
                         'class':'card'
                     }
                     const likeAttribute = {
-                        'class': 'fa-regular fa-heart like'
+                        'class': `fa-regular fa-heart ${isFav ? 'like' : ''}`
                     }
                     const detailsAttribute = {
                         'class': 'details'
