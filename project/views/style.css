@@ -56,6 +56,9 @@ main {
     margin: 0 0 50px 50px;
 }
 
+
+    /* Barre de recherche */
+
 #searchBar {
     display: flex;
     flex-direction: row;
@@ -79,6 +82,15 @@ main {
     margin: 0 15px;
 }
 
+    /* Filtre */
+
+input#order {
+    display: none;
+}
+
+
+    /* Layout */
+
 .layout {
     display: flex;
     justify-content: center;
@@ -87,6 +99,9 @@ main {
     width: 80%;
     margin: auto;
 }
+
+
+    /* Card */
 
 .card {
     position: relative;
@@ -103,7 +118,6 @@ main {
 }
 
 .card img {
-    background-color: red;
     width: 100%;
     height: auto;
 }
@@ -137,7 +151,7 @@ main {
 }
 
 
-/* Footer */
+    /* Footer */
 
 footer {
     margin-top: 50px !important;
