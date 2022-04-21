@@ -67,7 +67,8 @@ nft.createListNft = (listNft,parent) => {
         const imageAttribute = {
             'id':'myImg',
             'src':tab['image_url'],
-            'loading':'lazy'
+            'loading':'lazy',
+            'alt':`${tab['image_url'] ? tab['name'] : 'No Image'}`
         }
         const articleAttribute = {
             'id':idTab,
@@ -190,27 +191,27 @@ nft.testApiToken = async () => {
         'class':'layout'
     }
     const myList = nft.createElement('ol','',olAttribute,nft.body);
+    let listAll = [];
     await fetch("https://awesome-nft-app.herokuapp.com/")
         .then(response => response.json())
-        .then(result => {
-            localStorage.setItem('listAll', JSON.stringify(result['assets']));
+        .then(async result => {
+            let nextPage = result['next'];
+            console.log('test '+nextPage);
+            listAll = result['assets'];
+            while (nextPage) {
+                await fetch(`https://awesome-nft-app.herokuapp.com/?page=${nextPage}`).then(async response2 => response2.json())
+                    .then(result2 => {
+                        console.log(result2['assets'])
+                        listAll = listAll.concat(result2['assets']);
+
+                        nextPage = result2['next'];
+                    })
+                if (nextPage == 5){
+                    break;
+                }
+            }
+            localStorage.setItem('listAll', JSON.stringify(listAll));
             const testStorage = JSON.parse(localStorage.getItem('listAll'));
-            testStorage.forEach(tab =>{
-                const idTab = nft.clearString('title_'+tab['name']);
-                const imageAttribute = {
-                    'style':'display:block;' +
-                        'width:150px;' +
-                        'height:150px',
-                    'id':'myImg',
-                    'src':tab['image_url'],
-                    'loading':'lazy'
-                }
-                const liAttribute = {
-                    'style':'height:230px',
-                    'id':idTab
-                }
-                const elementLi = nft.createElement('li',tab['name'],liAttribute,myList);
-                nft.createElement('img','',imageAttribute,elementLi)
-            })
+            nft.createListNft(testStorage,myList)
         })
 }
